@@ -15,6 +15,8 @@
 
         .gallery-container {
             padding: 20px;
+            filter: blur(0);
+            transition: filter 0.3s ease;
         }
 
         .date-section {
@@ -60,7 +62,7 @@
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 2;
             left: 0;
             top: 0;
             width: 100%;
@@ -107,6 +109,46 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        #overlay {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        #notification-box {
+            background-color: #333;
+            color: #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        #notification-text {
+            margin-bottom: 15px;
+        }
+
+        #notification-button {
+            background-color: #555;
+            color: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        #notification-button:hover {
+            background-color: #777;
+        }
     </style>
 </head>
 <body>
@@ -118,6 +160,13 @@
         <img class="modal-content" id="expanded-img">
     </div>
 
+    <div id="overlay">
+        <div id="notification-box">
+            <p id="notification-text">Данный сайт создан Xans434(Мной), но я не тот кто крашнул сервер. Я лишь являюсь человеком который скачал фотографии краша сервера с DISCORD и залил их на сайт.</p>
+            <button id="notification-button">Я понял</button>
+        </div>
+    </div>
+
     <script>
         const galleryContainer = document.querySelector('.gallery-container');
         const modal = document.getElementById('imageModal');
@@ -127,6 +176,14 @@
         const dateFolders = {
             '16.04.2025': { count: 17, names: (i) => `${i}.png` },
         };
+
+        const overlay = document.getElementById('overlay');
+        const notificationButton = document.getElementById('notification-button');
+
+        notificationButton.addEventListener('click', () => {
+            overlay.style.display = 'none';
+            galleryContainer.style.filter = 'blur(0)';
+        });
 
         for (const date in dateFolders) {
             if (dateFolders.hasOwnProperty(date)) {
