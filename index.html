@@ -4,14 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Фотогалерея Огмур</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .gallery-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .gallery-item {
+            margin: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            display: block;
+            width: 200px;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 900px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .modal-content#expanded-img {
+            animation-name: zoomIn;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoomIn {
+            from {transform: translate(-50%, -50%) scale(0)}
+            to {transform: translate(-50%, -50%) scale(1)}
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="gallery-container">
-        <h1>Фотогалерея Огмур</h1>
-        <div class="gallery">
-            </div>
+        </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close-button">&times;</span>
+        <img class="modal-content" id="expanded-img">
     </div>
-    <script src="js/script.js"></script>
+
+    <script>
+        const galleryContainer = document.querySelector('.gallery-container');
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('expanded-img');
+        const closeButton = document.querySelector('.close-button');
+        const imageCount = 17;
+        const imagePath = 'img/Ogmur/';
+
+        for (let i = 1; i <= imageCount; i++) {
+            const imageName = `${i}.png`;
+            const imageUrl = imagePath + imageName;
+            const galleryItem = document.createElement('div');
+            galleryItem.classList.add('gallery-item');
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = `Фото ${i}`;
+
+            galleryItem.appendChild(img);
+            galleryContainer.appendChild(galleryItem);
+
+            img.addEventListener('click', () => {
+                modal.style.display = "block";
+                modalImg.src = imageUrl;
+            });
+        }
+
+        closeButton.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
