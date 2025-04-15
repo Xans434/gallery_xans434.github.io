@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фотогалерея Огмур</title>
+    <title>Ogmur и наши потери</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
         body {
             font-family: sans-serif;
@@ -110,7 +111,7 @@
 </head>
 <body>
     <div class="gallery-container">
-        </div>
+    </div>
 
     <div id="imageModal" class="modal">
         <span class="close-button">&times;</span>
@@ -125,7 +126,6 @@
         const imagePathBase = 'img/Ogmur/';
         const dateFolders = {
             '16.04.2025': { count: 17, names: (i) => `${i}.png` },
-            // Здесь можно добавить другие папки с датами и их количеством файлов
         };
 
         for (const date in dateFolders) {
